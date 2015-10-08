@@ -33,10 +33,13 @@ angular.module('alarmcontrolApp')
 
     function quienTermino(pclist){
       return pclist.filter(function(pc){
+        // revisar si es libre, y tiempo 0, entonces no incluir
+        if(pc.libre && pc.tiempo===0)
+          return false;
         return pc.quedan<1;
       }).map(function(pc){
         return pc.pcid;
-      });
+      }).join(", ");
     }
 
     /////////////////////////////////////
@@ -48,6 +51,7 @@ angular.module('alarmcontrolApp')
     $scope.deletePc=deletepc;
     $scope.edit = editpc;
     $scope.terminoTiempo = terminoTiempo;
+    $scope.faltaPocoTiempo = faltaPocoTiempo;
     $scope.refreshTime = refreshTime;
     $scope.timechanged = fnTimeChanged;
 
@@ -58,12 +62,12 @@ angular.module('alarmcontrolApp')
     // on each tick refresh time remains
     socket.setTimertick( function(timer){
       $scope.servertime = new Date(timer.time);
-      console.log("servertime:::",$scope.servertime );
+      //console.log("servertime:::",$scope.servertime );
 
       // refresh tiempoInicio, unless its user edited
       if(!$scope.timeChanged){
         $scope.pc.tiempoinicio = new Date(timer.time);
-        console.log("time refresh");
+        //console.log("time refresh");
       }
 
       if(Array.isArray($scope.pclist)){
@@ -82,15 +86,23 @@ angular.module('alarmcontrolApp')
     }
 
     function refreshTime() {
-      $scope.pc.tiempoinicio = new Date(timer.time);
+      $scope.pc.tiempoinicio = $scope.servertime;
     }
 
-    function terminoTiempo(value){
-      return value<1;
+    function faltaPocoTiempo(pc){
+      if(pc.libre && pc.tiempo===0)
+        return false;
+      return pc.quedan>0 && pc.quedan<=5;
+    }
+
+    function terminoTiempo(pc){
+      if(pc.libre && pc.tiempo===0)
+        return false;
+      return pc.quedan<1;
     }
 
     function setPCList(data){
-      console.log("pclist",data);
+      //console.log("pclist",data);
 
       $scope.pclist = data.map(calcRemain);
       // get listaLlamar
@@ -146,11 +158,11 @@ angular.module('alarmcontrolApp')
 
 
     function deletepc(pcobj){
-    	console.log("deleting", pcobj);
+    	//console.log("deleting", pcobj);
     	$http.delete("/api/pcs/"+pcobj._id).success(function(data){
-    		console.log("delete result", data);
+    		//console.log("delete result", data);
     		$scope.pclist=$scope.pclist.filter(function(pc){
-    			console.log("scaning",pc,data);
+    			//console.log("scaning",pc,data);
     			return pc._id !== pcobj._id;
     		});
 

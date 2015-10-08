@@ -73,7 +73,7 @@ angular.module('alarmcontrolApp')
 
       setTimertick: function(cb){
         socket.on('time', function (timer) {
-          console.log("serverTime", timer);
+          //console.log("serverTime", timer);
           cb(timer);
         })
       }

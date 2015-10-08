@@ -56,7 +56,7 @@
 			<ul>
 				<li class="" ng-repeat="pca in pclist | orderBy:'pcid'">
 					<button class="del" ng-click="deletePc(pca)">X</button>
-					<div class="cuadro" ng-class="{'cuadro-amarillo':terminoTiempo(pca.quedan-5),'cuadro-rojo':terminoTiempo(pca.quedan), 'libre':pca.libre}" ng-click="edit(pca)">
+					<div class="cuadro" ng-class="{'cuadro-amarillo':faltaPocoTiempo(pca),'cuadro-rojo':terminoTiempo(pca), 'libre':pca.libre}" ng-click="edit(pca)">
 						
 						<div class="pcid">{{pca.pcid}}</div>
 						<div class="detalle">
