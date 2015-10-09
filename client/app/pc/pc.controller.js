@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alarmcontrolApp')
-  .controller('PcCtrl', function ($scope, $http, socket) {
+  .controller('PcCtrl', function ($scope, $http, socket, speakService) {
 
     $scope.ismeridian = true;
 
@@ -87,6 +87,11 @@ angular.module('alarmcontrolApp')
       }
       // get listaLlamar
       $scope.listaLlamar = quienTermino($scope.pclist);
+
+      // habla si hay alguno que termino
+      if ($scope.listaLlamar) {
+        speakService.talk($scope.listaLlamar);
+      }
     } );
 
     /////////////////////
