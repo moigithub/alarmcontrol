@@ -13,7 +13,29 @@
 		{{listaLlamar}}
 		</h1>
 	</div>
+	<div class="col-md-6 panel panel-info">
+		<div class="panel-heading">PC's Disponibles</div>
+		<div class="panel-body">
+			<button ng-repeat="freePC in pcDisponibles" class="btn btn-lg btn-info" ng-click="selectPC(freePC)">{{freePC}}</button>
+		</div>
+		</h1>
+	</div>
+	<div class="col-md-6 panel panel-success">
+		<div class="panel-heading">Opciones</div>
+		<div class="panel-body">
+			<button class="btn btn-lg btn-sucess" ng-click="creaPC(15,false)">+15</button>
+			<button class="btn btn-lg btn-sucess" ng-click="creaPC(20,false)">+20</button>
+			<button class="btn btn-lg btn-sucess" ng-click="creaPC(30,false)">+30</button>
+			<button class="btn btn-lg btn-sucess" ng-click="creaPC(40,false)">+40</button>
+			<button class="btn btn-lg btn-sucess" ng-click="creaPC(60,false)">+60</button>
+			<button class="btn btn-lg btn-sucess" ng-click="creaPC(0,true)">Libre</button>
+		</div>
+		</h1>
+	</div>
+</div>	
+<div class="row">
 	<div class="col-md-3">
+		<h1 class="alert alert-success" role="alert">{{selectedPC}}</h1>
 		<form ng-submit="savePc(pc)">
 			<p>
 				<label for="id">PC (id)</label>
