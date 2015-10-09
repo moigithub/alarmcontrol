@@ -76,7 +76,7 @@
 	<div class="col-md-8">
 		<div class="pclist">
 			<ul>
-				<li class="" ng-repeat="pca in pclist | orderBy:'pcid'">
+				<li class="" ng-repeat="pca in pclist | orderBy:orderPCID">
 					<button class="del" ng-click="deletePc(pca)">X</button>
 					<div class="cuadro" ng-class="{'cuadro-amarillo':faltaPocoTiempo(pca),'cuadro-rojo':terminoTiempo(pca), 'libre':pca.libre}" ng-click="edit(pca)">
 						

@@ -25,8 +25,10 @@ angular.module('alarmcontrolApp')
     $scope.pcDisponibles = [];
 
     $scope.selectedPC="0";
-
-
+    
+    $scope.orderPCID = function(pc){
+      return parseInt(pc.pcid);
+    }
     ////////////////////////
     //// HELPER Functions
     ////////////////////////
@@ -152,9 +154,8 @@ angular.module('alarmcontrolApp')
           .filter(function(xpc){ return xpc.pcid===$scope.selectedPC});
 
         if(pcInUse.length>0) {
+          pc = pcInUse[0];
           pc.tiempo = pcInUse[0].tiempo + tiempo;
-          // ignore esLibre parameter, keep whatever libre status were
-          pc.libre = pcInUse[0].libre;
           //console.log(pcInUse);
         }
 
