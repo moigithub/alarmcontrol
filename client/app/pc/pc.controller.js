@@ -67,6 +67,10 @@ angular.module('alarmcontrolApp')
     $scope.selectPC = selectPC;
     $scope.creaPC = creaPC;
 
+    $scope.esLibre = function(pc){
+      return pc.libre && pc.tiempo===0;
+    }
+
 
      /////////////////////////////////////
      // serverTime ticks socket
@@ -90,7 +94,7 @@ angular.module('alarmcontrolApp')
 
       // habla si hay alguno que termino
       if ($scope.listaLlamar) {
-        speakService.talk($scope.listaLlamar);
+        speakService.talk("Terminó",$scope.listaLlamar);
       }
     } );
 

@@ -19,7 +19,7 @@
 .pclist ul li {
 	position:relative;
 	float:left;
-	width: 180px;
+	width: 150px;
 	
 	-moz-box-sizing: border-box;
          box-sizing: border-box;
@@ -40,34 +40,36 @@
 	
 	color: #eee;
 	width:100%;
-	height: 113px;
+	height: 100px;
 	position:relative;
-	opacity: 0.8;
-	margin-top: -68px;
+	opacity: 0.9;
+	margin-top: -58px;
 }
 
 .del {
-	float:right;
+	position: absolute;
+	right: -5px;
+	top: -4px;
 	z-index: 999;
 
-	padding: 20px;
+	padding: 15px;
 	border-radius: 0 0 0 60px ;
 	font-size: 1.5em;
 }
 
 .cuadro .pcid {
-	font-size: 6em;
+	font-size: 5em;
 	font-family: 'Titillium Web', 'sans-serif';
 	text-shadow: 3px 3px 3px rgba(110,120,130,0.75);  
 	font-weight: 900;
 	padding: 15px 0 10px 15px ;
-	margin-top:-40px;
-	margin-bottom: -30px;
+	margin-top:-30px;
+	margin-bottom: -10px;
 }
 
 .cuadro .tiempo,
 .cuadro .tiempo-inicio {
-	font-size: 1.4em;
+	font-size: 1.2em;
 	text-align: center;
 }
 
@@ -84,7 +86,7 @@
 .cuadro .tiempo-van {
 	position: absolute;
 	left: 0px;
-	top:68px;
+	top:55px;
 	background-color: #e3a667;
 	width: 50%;
 	font-size: 0.8em;

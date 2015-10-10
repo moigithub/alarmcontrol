@@ -84,7 +84,7 @@
 						<div class="detalle">
 							<div class="tiempo-inicio"><span>{{pca.tiempoinicio|date:'h:mm:ss a'}}</span></div>
 							<div class="tiempo">Tiempo <span>{{pca.tiempo}}</span></div>
-							<div class="tiempo-quedan">Quedan <span>{{pca.quedan }}</span></div>
+							<div class="tiempo-quedan">Quedan <span  ng-hide="esLibre(pca)">{{pca.quedan }}</span></div>
 							<div class="tiempo-van">Van <span>{{pca.van }}</span></div>
 						</div>
 					</div>
