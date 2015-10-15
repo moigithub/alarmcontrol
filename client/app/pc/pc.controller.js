@@ -181,6 +181,8 @@ angular.module('alarmcontrolApp')
       $scope.pcDisponibles = getPCDisponibles(data);
     }
     
+
+    // quick access buttons +15, +30 etc
     function creaPC(tiempo, esLibre){
       // set default pc data
         var pc = { pcid:$scope.selectedPC, 
@@ -207,6 +209,7 @@ angular.module('alarmcontrolApp')
         savepc(pc);
     }
 
+    // save button form, to create pc on server
     function savepc(pcobj){
     	//console.log("saving..", pcobj);
       // remove spaces on id
@@ -237,6 +240,14 @@ angular.module('alarmcontrolApp')
         //reset timeChanged
         $scope.timeChanged = false;
 
+
+        // get listaLlamar
+        $scope.listaLlamar = quienTermino($scope.pclist);
+
+        // llama y beep
+        checkLlamar($scope.listaLlamar);
+        checkBeep(beep);
+
     	}).error(function(data){
             console.log("error", data);
         });
@@ -253,6 +264,7 @@ angular.module('alarmcontrolApp')
         
         ,historico: []
       };
+      $scope.timeChanged = false;
 
       $scope.selectedPC=pcID;
     }

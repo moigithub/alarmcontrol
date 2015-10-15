@@ -26,7 +26,7 @@ angular.module('alarmcontrolApp')
 
 				    
 				 }
-	console.log("habla");
+	//console.log("habla");
   			},
 
   			beep: function(){
@@ -37,7 +37,7 @@ angular.module('alarmcontrolApp')
 
   				*/
   				var a= $('#beep').get(0);
-  				a.volume = 0.2;
+  				//a.volume = 0.2;
   				a.play();
   			}
   		}
