@@ -243,8 +243,18 @@ angular.module('alarmcontrolApp')
     }
 
     function selectPC(pcID) {
+      $scope.pc = { pcid:pcID, 
+        tiempo: 60,       // cuanto tiempo en minutos 
+        libre: false,        // pago despues o adelantado 
+        tiempoinicio: $scope.servertime,    // fecha hora de inicio
+        precio:1.4,       // cuando se cierra/termina.. cuanto pago?
+        nombre:"",         // nombre alternativo al numero del pc
+        notas: ""         // algun comentario sobre el pc.. debe, 1 gaseosa x cobrar
+        
+        ,historico: []
+      };
+
       $scope.selectedPC=pcID;
-      $scope.pc.pcid = pcID;
     }
 
     function editpc(pcobj){
