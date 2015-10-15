@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alarmcontrolApp')
-  .controller('PcCtrl', function ($scope, $http, socket, speakService) {
+  .controller('PcCtrl', function ($scope, $http, socket, SoundService) {
 
     $scope.ismeridian = true;
 
@@ -15,6 +15,13 @@ angular.module('alarmcontrolApp')
       
       ,historico: []
     };
+
+    var beep=false,
+        beeping = false,
+        beepHandler;
+
+
+
 
     $scope.timeChanged = false;
     $scope.servertime = new Date(); // default start value
@@ -51,6 +58,34 @@ angular.module('alarmcontrolApp')
         return pc.pcid;
       }).join(", ");
     }
+
+    function checkLlamar(lista){
+      // habla si hay alguno que termino
+      if (lista) {
+        SoundService.talk("Terminó",lista);
+        beep = true;
+      } else {
+        beep=false;
+      }      
+    }
+
+    function checkBeep(status){
+      // beep 
+      if (beep) {
+        if (!beeping) {
+          beeping=true;
+          beepHandler = setInterval(function(){
+            SoundService.beep();
+          }, 500);
+        }
+      } else {
+        console.log(beepHandler);
+
+        clearInterval(beepHandler);
+        beeping = false;
+      }
+    }
+
 
     /////////////////////////////////////
     //// http GET
@@ -92,10 +127,10 @@ angular.module('alarmcontrolApp')
       // get listaLlamar
       $scope.listaLlamar = quienTermino($scope.pclist);
 
-      // habla si hay alguno que termino
-      if ($scope.listaLlamar) {
-        speakService.talk("Terminó",$scope.listaLlamar);
-      }
+      // llama y beep
+      checkLlamar($scope.listaLlamar);
+      checkBeep(beep);
+
     } );
 
     /////////////////////
@@ -151,7 +186,7 @@ angular.module('alarmcontrolApp')
         var pc = { pcid:$scope.selectedPC, 
               tiempo: tiempo,       // cuanto tiempo en minutos 
               libre: esLibre,        // pago despues o adelantado 
-              tiempoinicio: new Date(),    // fecha hora de inicio
+              tiempoinicio: $scope.servertime , // new Date()   // fecha hora de inicio
               precio:1.4,       // cuando se cierra/termina.. cuanto pago?
               nombre:"",         // nombre alternativo al numero del pc
               notas: "",         // algun comentario sobre el pc.. debe, 1 gaseosa x cobrar
@@ -192,7 +227,7 @@ angular.module('alarmcontrolApp')
     		$scope.pc = { pcid:"0", 
               tiempo: 60,       // cuanto tiempo en minutos 
               libre: false,        // pago despues o adelantado 
-              tiempoinicio: new Date(),    // fecha hora de inicio
+              tiempoinicio: $scope.servertime , //new Date(),    // fecha hora de inicio
               precio:1.4,       // cuando se cierra/termina.. cuanto pago?
               nombre:"",         // nombre alternativo al numero del pc
               notas: "",         // algun comentario sobre el pc.. debe, 1 gaseosa x cobrar
@@ -209,6 +244,7 @@ angular.module('alarmcontrolApp')
 
     function selectPC(pcID) {
       $scope.selectedPC=pcID;
+      $scope.pc.pcid = pcID;
     }
 
     function editpc(pcobj){
@@ -242,6 +278,12 @@ angular.module('alarmcontrolApp')
 
         // get listaLlamar
         $scope.listaLlamar = quienTermino($scope.pclist);
+
+
+        // llama y beep
+        checkLlamar($scope.listaLlamar);
+        checkBeep(beep);
+
     	}).error(function(data){
             console.log("delete error", data);
         });

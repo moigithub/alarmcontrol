@@ -3,7 +3,7 @@
 angular.module('alarmcontrolApp')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/pc', {
+      .when('/', {
         templateUrl: 'app/pc/pc.html',
         controller: 'PcCtrl'
       });
