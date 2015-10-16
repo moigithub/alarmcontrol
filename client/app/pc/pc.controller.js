@@ -79,7 +79,7 @@ angular.module('alarmcontrolApp')
           }, 500);
         }
       } else {
-        console.log(beepHandler);
+        //console.log(beepHandler);
 
         clearInterval(beepHandler);
         beeping = false;
@@ -179,8 +179,33 @@ angular.module('alarmcontrolApp')
 
       // build pcDisponibles list
       $scope.pcDisponibles = getPCDisponibles(data);
+
+
+      // initialize async mode
+      socket.syncUpdates('pc', $scope.pclist, function(event, item, listaPCs){
+        // callback is called everytime PC is added/removed
+        $scope.pclist = listaPCs.map(calcRemain);
+
+        // build pcDisponibles list
+        $scope.pcDisponibles = getPCDisponibles($scope.pclist);
+
+        // get listaLlamar
+        $scope.listaLlamar = quienTermino($scope.pclist);
+
+
+        // llama y beep
+        checkLlamar($scope.listaLlamar);
+        checkBeep(beep);
+
+      });
     }
     
+    // remove async events listening 
+    $scope.$on('$destroy', function () {
+      socket.unsyncUpdates('pc');
+    });
+
+
 
     // quick access buttons +15, +30 etc
     function creaPC(tiempo, esLibre){
@@ -217,17 +242,29 @@ angular.module('alarmcontrolApp')
 
     	$http.post("/api/pcs", pcobj).success(function(pc){
     		//console.log("saved",pc);
+
+        ////////////**************************
+        // handled con async/societ io
+        /*
     		$scope.pclist= $scope.pclist
           .filter(function(xpc){ return xpc.pcid!==pc.pcid});
-
         $scope.pclist.push(calcRemain(pc));
-
-
+        */
+        // handled con async/societ io
+        ////////////**************************
+/*
         // build pcDisponibles list
         $scope.pcDisponibles = getPCDisponibles($scope.pclist);
+        // get listaLlamar
+        $scope.listaLlamar = quienTermino($scope.pclist);
+
+        // llama y beep
+        checkLlamar($scope.listaLlamar);
+        checkBeep(beep);
+*/
 
         // set default pc data
-    		$scope.pc = { pcid:"0", 
+        $scope.pc = { pcid:"0", 
               tiempo: 60,       // cuanto tiempo en minutos 
               libre: false,        // pago despues o adelantado 
               tiempoinicio: $scope.servertime , //new Date(),    // fecha hora de inicio
@@ -240,13 +277,6 @@ angular.module('alarmcontrolApp')
         //reset timeChanged
         $scope.timeChanged = false;
 
-
-        // get listaLlamar
-        $scope.listaLlamar = quienTermino($scope.pclist);
-
-        // llama y beep
-        checkLlamar($scope.listaLlamar);
-        checkBeep(beep);
 
     	}).error(function(data){
             console.log("error", data);
@@ -290,11 +320,18 @@ angular.module('alarmcontrolApp')
     	//console.log("deleting", pcobj);
     	$http.delete("/api/pcs/"+pcobj._id).success(function(data){
     		//console.log("delete result", data);
+
+        ////////////**************************
+        // handled con async/societ io
+        /*
+
     		$scope.pclist=$scope.pclist.filter(function(pc){
     			//console.log("scaning",pc,data);
     			return pc._id !== pcobj._id;
     		});
-
+        */
+        ////////////**************************
+/*
         // build pcDisponibles list
         $scope.pcDisponibles = getPCDisponibles($scope.pclist);
 
@@ -305,7 +342,7 @@ angular.module('alarmcontrolApp')
         // llama y beep
         checkLlamar($scope.listaLlamar);
         checkBeep(beep);
-
+*/
     	}).error(function(data){
             console.log("delete error", data);
         });
