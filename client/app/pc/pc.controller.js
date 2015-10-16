@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alarmcontrolApp')
-  .controller('PcCtrl', function ($scope, $http, socket, SoundService) {
+  .controller('PcCtrl', function ($scope, $http, socket, $uibModal,SoundService) {
 
     $scope.ismeridian = true;
 
