@@ -7,7 +7,11 @@ angular.module('alarmcontrolApp')
       'link': '/'
     }];
 
-    $scope.isCollapsed = true;
+    $scope.isCollapsed = false;
+    if ($(window).width() <= 768) {
+        $scope.isCollapsed = true;
+    }
+
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;

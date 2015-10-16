@@ -1,9 +1,12 @@
 'use strict';
 
 angular.module('alarmcontrolApp')
-  .controller('PcCtrl', function ($scope, $http, socket, $uibModal, SoundService) {
+  .controller('PcCtrl', function ($scope, $http, socket, Auth, $uibModal, SoundService) {
 
+    $scope.isLoggedIn = Auth.isLoggedIn;
+    
     $scope.ismeridian = true;
+
 
     $scope.pc = { pcid:"0", 
       tiempo: 60,       // cuanto tiempo en minutos 

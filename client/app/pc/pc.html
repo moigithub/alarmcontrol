@@ -21,7 +21,7 @@
 		</div>
 		</h1>
 	</div>
-	<div class="col-md-6 panel panel-success">
+	<div class="col-md-6 panel panel-success" ng-show="isLoggedIn()">
 		<div class="panel-heading">Opciones</div>
 		<div class="panel-body">
 			<button class="btn btn-lg btn-sucess" ng-click="creaPC(15,false)">+15</button>
@@ -37,7 +37,7 @@
 <div class="row">
 	<div class="col-md-3">
 		<h1 class="alert alert-success" role="alert">{{selectedPC}}</h1>
-		<form ng-submit="savePc(pc)">
+		<form ng-submit="savePc(pc)" ng-show="isLoggedIn()">
 			<p>
 				<label for="id">PC (id)</label>
 				<input type="text" id="pc" ng-model="pc.pcid" required>
@@ -78,7 +78,7 @@
 		<div class="pclist">
 			<ul>
 				<li class="" ng-repeat="pca in pclist | orderBy:orderPCID">
-					<button class="del" ng-click="deletePc(pca)">X</button>
+					<button class="del" ng-click="deletePc(pca)" ng-show="isLoggedIn()">X</button>
 					<div class="cuadro" ng-class="{'cuadro-amarillo':faltaPocoTiempo(pca),'cuadro-rojo':terminoTiempo(pca), 'libre':pca.libre}" ng-click="edit(pca)">
 						
 						<div class="pcid">{{pca.pcid}}</div>

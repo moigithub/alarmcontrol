@@ -38,7 +38,9 @@ angular.module('alarmcontrolApp')
   				*/
   				var a= $('#beep').get(0);
   				//a.volume = 0.2;
-  				a.play();
+  				if (a) {
+  					a.play();
+  				}
   			}
   		}
   });
