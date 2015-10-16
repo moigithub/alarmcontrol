@@ -13,7 +13,7 @@ module.exports = function(app) {
   
   app.use('/api/users', require('./api/user'));
   app.use('/api/pcs', require('./api/pc'));
-  app.use('/api/alquiler', require('./api/alquiler'));
+  
 
   app.use('/auth', require('./auth'));
   

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('alarmcontrolApp')
-  .controller('PcCtrl', function ($scope, $http, socket, $uibModal,SoundService) {
+  .controller('PcCtrl', function ($scope, $http, socket, $uibModal, SoundService) {
 
     $scope.ismeridian = true;
 
@@ -227,6 +227,7 @@ angular.module('alarmcontrolApp')
         if(pcInUse.length>0) {
           pc = pcInUse[0];
           pc.tiempo = pcInUse[0].tiempo + tiempo;
+          pc.libre = esLibre;
           //console.log(pcInUse);
         }
 
@@ -318,7 +319,7 @@ angular.module('alarmcontrolApp')
 
     function deletepc(pcobj){
       var modalInstance = $uibModal.open({
-        animation: $scope.animationsEnabled,
+        animation: true,
         templateUrl: 'confirma.html',
         controller: 'ModalInstanceCtrl',
         size: 'sm',
@@ -345,6 +346,9 @@ angular.module('alarmcontrolApp')
 
   });
 
+/////////////////////////////////
+//// ModalInstanceCtrl
+//////////////////////////////////
 angular.module('alarmcontrolApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
   $scope.ok = function () {

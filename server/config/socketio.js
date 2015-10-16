@@ -18,7 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/alquiler/alquiler.socket').register(socket);
+  
   require('../api/pc/pc.socket').register(socket);
   
 }

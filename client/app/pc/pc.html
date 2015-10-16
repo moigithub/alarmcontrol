@@ -52,7 +52,7 @@
 			</p>
 			<p>
 				<label for="id">Tiempo Inicio</label>
-				<timepicker ng-change="timechanged()" ng-model="pc.tiempoinicio" show-meridian="ismeridian"></timepicker>
+				<uib-timepicker ng-change="timechanged()" ng-model="pc.tiempoinicio" show-meridian="ismeridian"></uib-timepicker>
 				<button ng-click="refreshTime()">Refresh time</button>
 				locked <input type="checkbox" ng-model="timeChanged" data-toggle="toggle" data-onstyle="info" data-on="Auto-Refresh" data-off="Refresh Off">
 			</p>
@@ -101,7 +101,7 @@
 
 <script type="text/ng-template" id="confirma.html">
     <div class="modal-header">
-        <h3 class="modal-title">Confirma</h3>
+        <h4 class="modal-title">Confirma</h4>
     </div>
     <div class="modal-body">
         <h3>Desea borrar?</h3>
