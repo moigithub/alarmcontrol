@@ -317,57 +317,41 @@ angular.module('alarmcontrolApp')
 
 
     function deletepc(pcobj){
-    	//console.log("deleting", pcobj);
-    	$http.delete("/api/pcs/"+pcobj._id).success(function(data){
-    		//console.log("delete result", data);
+      var modalInstance = $uibModal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'confirma.html',
+        controller: 'ModalInstanceCtrl',
+        size: 'sm',
+        resolve: {
+          /*
+          items: function () {
+            return $scope.items;
+          }
+          */
+        }
+      });
 
-        ////////////**************************
-        // handled con async/societ io
-        /*
+      modalInstance.result.then(function () {
+            //console.log("deleting", pcobj);
+            $http.delete("/api/pcs/"+pcobj._id).success(function(data){
+            }).error(function(data){
+                  console.log("delete error", data);
+            });
+      }, function () {
+        //$log.info('Modal dismissed at: ' + new Date());
+      });
 
-    		$scope.pclist=$scope.pclist.filter(function(pc){
-    			//console.log("scaning",pc,data);
-    			return pc._id !== pcobj._id;
-    		});
-        */
-        ////////////**************************
-/*
-        // build pcDisponibles list
-        $scope.pcDisponibles = getPCDisponibles($scope.pclist);
-
-        // get listaLlamar
-        $scope.listaLlamar = quienTermino($scope.pclist);
-
-
-        // llama y beep
-        checkLlamar($scope.listaLlamar);
-        checkBeep(beep);
-*/
-    	}).error(function(data){
-            console.log("delete error", data);
-        });
     }
 
-  })
+  });
 
+angular.module('alarmcontrolApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 
-/*
-.directive("cuadroAlquiler", function () {
-  return {
-    restrict: "E",
-    scope: {
-        
-    },
-    fun: "&",
-    pc: "="
-    templateUrl: "cuadro.html", 
-    link: function(scope, element, attrs){
-        // all of this can easily be done with a filter, but i understand you just want to     
-        // know how it works
-        scope.formattedText = scope.pos.Name + ' (' + scope.pos.Code + ')';
-    }
-  }
-})
-*/
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
 
-;
+  $scope.cancel = function () {
+    $modalInstance.dismiss('');
+  };
+});
