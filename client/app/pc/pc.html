@@ -78,7 +78,7 @@
 		<div class="pclist">
 			<ul>
 				<li class="" ng-repeat="pca in pclist | orderBy:orderPCID">
-					<button class="del" ng-click="deletePc(pca)" ng-show="isLoggedIn()">X</button>
+					<button class="del btn btn-danger" ng-click="deletePc(pca)" ng-show="isLoggedIn()">X</button>
 					<div class="cuadro" ng-class="{'cuadro-amarillo':faltaPocoTiempo(pca),'cuadro-rojo':terminoTiempo(pca), 'libre':pca.libre}" ng-click="edit(pca)">
 						
 						<div class="pcid">{{pca.pcid}}</div>
